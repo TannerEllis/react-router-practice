@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import React from 'react';
+import { useState } from 'react';
 import './App.css';
+import { Outlet, Link } from 'react-router-dom';
 
-function App() {
+const App =() => {
+
+  const [number, setNumber] = useState(0);
+
+  function increment() {
+    setNumber( prevNumber => prevNumber + 1)
+  }
+  function decrement() {
+    setNumber( prevNumber => prevNumber - 1)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Bookkeeper</h1>
+      <nav
+        style={{
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem",
+        }}
+      >
+        <Link to="/invoices"><button>Invoices</button></Link> |{" "}
+        <Link to="/expenses"><button>Expenses</button></Link>
+        <br/>
+        <button onClick={decrement}>-</button>
+        <span>{number}</span>
+        <button onClick={increment}>+</button>
+      </nav>
+      <Outlet/>
     </div>
   );
-}
+};
 
 export default App;
